@@ -24,8 +24,7 @@ public class MyFragment extends Fragment {
             public void onClick(View v) {
                 int count;
                 count = Integer.parseInt(myTextView.getText().toString());
-                count++;
-                myTextView.setText(""+count);
+                myTextView.setText(""+(count++));
             }
         });
 
