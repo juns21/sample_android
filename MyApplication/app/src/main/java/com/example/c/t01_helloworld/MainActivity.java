@@ -29,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
                     FragmentTransaction tr = fm.beginTransaction();
                     MyFragment myFr = new MyFragment();
                     tr.add(R.id.frame, myFr, "myFr");
+                    tr.addToBackStack(null);
                     tr.commit();
                 }
                 break;
@@ -60,6 +61,7 @@ public class MainActivity extends ActionBarActivity {
                        MyFragment myFr = new MyFragment();
                         tr.replace(R.id.frame, myFr, "myFr");
                     }
+                    tr.addToBackStack(null);
                     tr.commit();
                 }
                 break;
