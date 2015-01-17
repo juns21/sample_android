@@ -1,6 +1,6 @@
 package com.example.c.t01_helloworld;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +24,8 @@ public class MyFragment extends Fragment {
             public void onClick(View v) {
                 int count;
                 count = Integer.parseInt(myTextView.getText().toString());
-                myTextView.setText(""+(count++));
+                count++;
+                myTextView.setText(""+(++count));
             }
         });
 

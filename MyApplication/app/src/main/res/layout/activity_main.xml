@@ -16,11 +16,49 @@
         android:text="@string/hello_world"
         />
 
-    <fragment
+    <!--<fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/myFragment"
         android:name="com.example.c.t01_helloworld.MyFragment"
-        tools:layout="@layout/fragment_my" />
+        tools:layout="@layout/fragment_my" />-->
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add"
+        android:textSize="30dp"
+        android:id="@+id/btnAdd"
+        android:onClick="OnMyClick"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="remove"
+        android:textSize="30dp"
+        android:id="@+id/btnRemove"
+        android:onClick="OnMyClick"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hide"
+        android:textSize="30dp"
+        android:id="@+id/btnHide"
+        android:onClick="OnMyClick"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="replace"
+        android:textSize="30dp"
+        android:id="@+id/btnReplace"
+        android:onClick="OnMyClick"
+        />
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        </FrameLayout>
 </LinearLayout>

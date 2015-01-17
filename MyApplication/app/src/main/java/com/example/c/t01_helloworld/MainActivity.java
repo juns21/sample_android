@@ -1,9 +1,13 @@
 package com.example.c.t01_helloworld;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -12,8 +16,55 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
+    public void OnMyClick(View v) {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fr = fm.findFragmentById(R.id.frame);
+
+        switch (v.getId()) {
+            case R.id.btnAdd:
+                if(fr == null) {
+                    FragmentTransaction tr = fm.beginTransaction();
+                    MyFragment myFr = new MyFragment();
+                    tr.add(R.id.frame, myFr, "myFr");
+                    tr.commit();
+                }
+                break;
+            case R.id.btnRemove:
+                if (fr != null) {
+                    FragmentTransaction tr = fm.beginTransaction();
+                    tr.remove(fr);
+                    tr.commit();
+                }
+                break;
+            case R.id.btnHide:
+                if (fr != null) {
+                    FragmentTransaction tr = fm.beginTransaction();
+                    if (fr.isHidden()) {
+                        tr.show(fr);
+                    }else {
+                        tr.hide(fr);
+                    }
+                    tr.commit();
+                }
+                break;
+            case R.id.btnReplace:
+                if (fr != null) {
+                    FragmentTransaction tr = fm.beginTransaction();
+                    if (fr.getTag() == "myFr") {
+                        TextFragment textFragment = new TextFragment();
+                        tr.replace(R.id.frame, textFragment, "textFr");
+                    }else {
+                       MyFragment myFr = new MyFragment();
+                        tr.replace(R.id.frame, myFr, "myFr");
+                    }
+                    tr.commit();
+                }
+                break;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
