@@ -1,7 +1,7 @@
 package com.example.c.thread;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,20 +9,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity {
 
-    boolean bRunning;
-    class MyThread extends Thread {
-        public void run() {
-            for (int i=0; i<20 && bRunning; i++) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                Log.d("thread test", "count="+ i);
-            }
-        }
-    }
+    Thread th;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +21,27 @@ public class MainActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        bRunning = true;
-        MyThread th = new MyThread();
+        // new Thread().start();
+        th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i=0; i<20; i++) {
+                    Log.d("MyThread", "count="+i);
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
         th.start();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        bRunning = false;
     }
 
     @Override
