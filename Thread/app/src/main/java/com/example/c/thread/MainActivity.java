@@ -34,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
         };
     }
 
+    int count = 0;
     @Override
     protected void onStart() {
         super.onStart();
@@ -43,12 +44,13 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void run() {
                 for (int i=0; i<20; i++) {
-                    //Log.d("MyThread", "count="+i);
-                    //textView.setText("count="+ i);
-                    Message msg = new Message();
-                    msg.what = MY_THREAD_TEST;
-                    msg.arg1 = i;
-                    handler.sendMessage(msg);
+                    count = i;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText("runnable count ="+ count);
+                        }
+                    });
 
                     try {
                         Thread.sleep(1000);
