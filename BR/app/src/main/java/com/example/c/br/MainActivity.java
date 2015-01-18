@@ -1,5 +1,6 @@
 package com.example.c.br;
 
+import android.content.IntentFilter;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 
 
 public class MainActivity extends ActionBarActivity {
+    MyBR br;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +16,25 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        br = new MyBR();
+        String action = "android.provider.Telephony.SMS_RECEIVED";
+        //registerReceiver(br, android.provider.Telephony.SMS_RECEIVED);
+
+        IntentFilter filter = new IntentFilter(action);
+        registerReceiver(br, filter);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        unregisterReceiver(br);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
