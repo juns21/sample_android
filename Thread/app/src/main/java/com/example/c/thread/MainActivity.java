@@ -1,20 +1,37 @@
 package com.example.c.thread;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    static final int MY_THREAD_TEST = 1;
     Thread th;
+    TextView textView;
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        textView = (TextView) findViewById(R.id.textView);
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                if (msg.what == MY_THREAD_TEST) {
+                    textView.setText("count=" + msg.arg1);
+                }
+            }
+        };
     }
 
     @Override
@@ -26,7 +43,12 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void run() {
                 for (int i=0; i<20; i++) {
-                    Log.d("MyThread", "count="+i);
+                    //Log.d("MyThread", "count="+i);
+                    //textView.setText("count="+ i);
+                    Message msg = new Message();
+                    msg.what = MY_THREAD_TEST;
+                    msg.arg1 = i;
+                    handler.sendMessage(msg);
 
                     try {
                         Thread.sleep(1000);
