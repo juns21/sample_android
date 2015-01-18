@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
                             textView.setText("runnable count ="+ count);
                         }
                     });*/
-                    textView.post(new Runnable() {
+                    /*textView.post(new Runnable() {
                         @Override
                         public void run() {
                             textView.setText("view post runnable count="+ count);
@@ -62,7 +62,14 @@ public class MainActivity extends ActionBarActivity {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }
+                    }*/
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText("runOnUiThread count = "+count);
+                        }
+                    });
                 }
             }
         });
