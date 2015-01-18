@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -39,10 +40,18 @@ public class MainActivity extends ActionBarActivity {
         list.add(new MyData(R.drawable.ic_launcher, "Title6", "SubTitle6"));
         list.add(new MyData(R.drawable.ic_launcher, "Title7", "SubTitle7"));
         list.add(new MyData(R.drawable.ic_launcher, "Title8", "SubTitle8"));
+        list.add(new MyData(R.drawable.ic_launcher, "Title1", "SubTitle1"));
+        list.add(new MyData(R.drawable.ic_launcher, "Title2", "SubTitle2"));
+        list.add(new MyData(R.drawable.ic_launcher, "Title3", "SubTitle3"));
+        list.add(new MyData(R.drawable.ic_launcher, "Title4", "SubTitle4"));
+        list.add(new MyData(R.drawable.ic_launcher, "Title5", "SubTitle5"));
+        list.add(new MyData(R.drawable.ic_launcher, "Title6", "SubTitle6"));
+        list.add(new MyData(R.drawable.ic_launcher, "Title7", "SubTitle7"));
+        list.add(new MyData(R.drawable.ic_launcher, "Title8", "SubTitle8"));
 
         ListView listView = (ListView)findViewById(R.id.listView);
 
-        MyCustomAdapter adapter;
+        final MyCustomAdapter adapter;
         adapter = new MyCustomAdapter(this, R.layout.list_row, list);
         listView.setAdapter(adapter);
 
@@ -50,6 +59,30 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(MainActivity.this, list.get(position).mTitle, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int count = totalItemCount - visibleItemCount;
+                if (firstVisibleItem >= count) {
+                    list.add(new MyData(R.drawable.ic_launcher, "Title11", "SubTitle11"));
+                    list.add(new MyData(R.drawable.ic_launcher, "Title22", "SubTitle22"));
+                    list.add(new MyData(R.drawable.ic_launcher, "Title33", "SubTitle33"));
+                    list.add(new MyData(R.drawable.ic_launcher, "Title44", "SubTitle44"));
+                    list.add(new MyData(R.drawable.ic_launcher, "Title55", "SubTitle55"));
+                    list.add(new MyData(R.drawable.ic_launcher, "Title66", "SubTitle66"));
+                    list.add(new MyData(R.drawable.ic_launcher, "Title77", "SubTitle77"));
+                    list.add(new MyData(R.drawable.ic_launcher, "Title88", "SubTitle88"));
+
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 
