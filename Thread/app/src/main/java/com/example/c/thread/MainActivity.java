@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -15,11 +16,14 @@ public class MainActivity extends ActionBarActivity {
     Thread th;
     TextView textView;
     Handler handler;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressBar = (ProgressBar) findViewById(R.id.mProgressBar);
 
         textView = (TextView) findViewById(R.id.textView);
         handler = new Handler() {
@@ -29,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
 
                 if (msg.what == MY_THREAD_TEST) {
                     textView.setText("count=" + msg.arg1);
+                    progressBar.setProgress(msg.arg1);
                 }
             }
         };
@@ -43,8 +48,18 @@ public class MainActivity extends ActionBarActivity {
         th = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i=0; i<20; i++) {
+                for (int i=0; i<100; i++) {
                     count = i;
+
+                    /*Message msg = new Message();
+                    msg.what = MY_THREAD_TEST;
+                    msg.arg1 = i;
+                    handler.sendMessage(msg);*/
+                    Message msg = handler.obtainMessage();
+                    msg.what = MY_THREAD_TEST;
+                    msg.arg1 = i;
+                    handler.sendMessage(msg);
+
                     /*handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -56,20 +71,21 @@ public class MainActivity extends ActionBarActivity {
                         public void run() {
                             textView.setText("view post runnable count="+ count);
                         }
-                    });
+                    });*/
+
+                    /*runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText("runOnUiThread count = "+count);
+                            progressBar.setProgress(count);
+                        }
+                    });*/
 
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }*/
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            textView.setText("runOnUiThread count = "+count);
-                        }
-                    });
+                    }
                 }
             }
         });
