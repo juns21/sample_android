@@ -14,23 +14,27 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#c0c0c0"
         >
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:width="100dp"
             android:id="@+id/textViewDate"
             android:textColor="#FFFFFF"
+            android:text="날짜"
             />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:width="100dp"
             android:id="@+id/textViewWeek"
             android:textColor="#FFFFFF"
+            android:text="요일"
             />
     </LinearLayout>
 
