@@ -28,16 +28,18 @@
         />
     <include
         layout="@layout/button_row"
+        android:layout_weight="1"
          />
     <include
         layout="@layout/button_row"
+        android:layout_weight="1"
         />
     <include
         layout="@layout/button_row"
+        android:layout_weight="1"
         />
     <include
         layout="@layout/button_row"
+        android:layout_weight="1"
         />
-
-
 </TableLayout>
