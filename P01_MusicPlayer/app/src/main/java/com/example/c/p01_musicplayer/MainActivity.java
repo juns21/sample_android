@@ -1,9 +1,12 @@
 package com.example.c.p01_musicplayer;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -12,6 +15,36 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button btnStart = (Button) findViewById(R.id.btnPlay);
+        Button btnStop = (Button) findViewById(R.id.btnStop);
+        Button btnPause = (Button) findViewById(R.id.btnPause);
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MediaService.class);
+                startService(intent);
+            }
+        });
+
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MediaService.class);
+                intent.putExtra("BTNVALUE", "STOP");
+                stopService(intent);
+            }
+        });
+
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MediaService.class);
+                intent.putExtra("BTNVALUE", "PAUSE");
+                stopService(intent);
+            }
+        });
     }
 
 
