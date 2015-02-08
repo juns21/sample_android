@@ -7,45 +7,43 @@ import android.os.Binder;
 import android.os.Environment;
 import android.os.IBinder;
 
-import java.io.IOException;
-
-/**
- * Created by c on 2015-02-01.
- */
 public class MusicPlayerService extends Service {
-    public class LocalBinder2 extends Binder {
-        public MusicPlayerService getService() {
+    private MediaPlayer mPlayer = null;
+    private final IBinder mBinder = new LocalBinder();
+    public class LocalBinder extends Binder {
+        MusicPlayerService getService(){
             return MusicPlayerService.this;
         }
     }
-
-    private LocalBinder2 mLocalBinder2 = new LocalBinder2();
-    private MediaPlayer mPlayer = null;
+    public MusicPlayerService() {
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
-        return mLocalBinder2;
+        // TODO: Return the communication channel to the service.
+        return mBinder;
     }
 
-    public void play() {
+    public void play(){
         String path = Environment.getExternalStorageDirectory().toString();
-        path +="/Samsung/Music/Over_the_horizon.mp3";
+        path += "/Samsung/Music/Over_the_horizon.mp3";
 
         mPlayer = new MediaPlayer();
         try {
             mPlayer.setDataSource(path);
             mPlayer.prepare();
-        } catch (IOException e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
+
         mPlayer.start();
     }
 
-    public void stop() {
-        if (mPlayer != null) {
+    public void stop(){
+        if(mPlayer != null){
             mPlayer.stop();
             mPlayer.release();
-            mPlayer = null;
         }
+        mPlayer = null;
     }
 }
