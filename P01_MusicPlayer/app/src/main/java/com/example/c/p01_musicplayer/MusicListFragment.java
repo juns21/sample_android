@@ -1,11 +1,13 @@
 package com.example.c.p01_musicplayer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.File;
@@ -32,6 +34,13 @@ public class MusicListFragment extends ListFragment {
         }
         MyAdapter adapter = new MyAdapter(fileList);
         setListAdapter(adapter);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        //super.onListItemClick(l, v, position, id);
+        Intent intent = new Intent(getActivity(), MainActivity2.class);
+        startActivity(intent);
     }
 
     class MyAdapter extends ArrayAdapter<File>{

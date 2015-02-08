@@ -10,12 +10,14 @@ import android.os.IBinder;
 public class MusicPlayerService extends Service {
     private MediaPlayer mPlayer = null;
     private final IBinder mBinder = new LocalBinder();
+    MediaPlayerSQLiteHandler mDBHandler;
     public class LocalBinder extends Binder {
         MusicPlayerService getService(){
             return MusicPlayerService.this;
         }
     }
     public MusicPlayerService() {
+        mDBHandler = new MediaPlayerSQLiteHandler(this);
     }
 
     @Override
@@ -37,6 +39,20 @@ public class MusicPlayerService extends Service {
         }
 
         mPlayer.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (mPlayer.isPlaying()) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    mDBHandler.update(1, mPlayer.getCurrentPosition());
+                }
+            }
+        }).start();
     }
 
     public void stop(){
